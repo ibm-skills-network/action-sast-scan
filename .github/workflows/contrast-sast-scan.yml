@@ -24,11 +24,11 @@ jobs:
           contrast-api-url: ${{ vars.CONTRAST_API_URL }}
           jfrog-token: ${{ secrets.JFROG_TOKEN }}
           contrast-api-agent-version: ${{ vars.CONTRAST_AGENT_VERSION }}
-          contrast-api-user-name: ${{ secrets.CONTRAST_API_USER_NAME }}
-          contrast-api-api-key: ${{ secrets.CONTRAST_API_API_KEY }}
-          contrast-api-service-key: ${{ secrets.CONTRAST_API_SERVICE_KEY }}
-          contrast-api-organization: ${{ secrets.CONTRAST_API_ORGANIZATION }}
-          contrast-api-auth-token: ${{ secrets.CONTRAST_AUTH_TOKEN }}
+          contrast-api-user-name: ${{ secrets.CONTRAST__API__USER_NAME }}
+          contrast-api-api-key: ${{ secrets.CONTRAST__API__API_KEY }}
+          contrast-api-service-key: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
+          contrast-api-organization: ${{ secrets.CONTRAST__API__ORGANIZATION }}
+          contrast-api-auth-token: ${{ secrets.CONTRAST__AUTH__TOKEN }}
           contrast-api-resource-group: ${{ vars.CONTRAST_RESOURCE_GROUP }}
 
       # - name: Upload SAST Scan Results
