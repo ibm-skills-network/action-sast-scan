@@ -1,26 +1,56 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import { exec } from 'child_process'
+import { promisify } from 'util'
 
-/**
- * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
- */
-export async function run(): Promise<void> {
+const execAsync = promisify(exec)
+
+export async function runSastScan(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    //Retrieve inputs
+    const jfrogToken = core.getInput('jfrog-token')
+    const contrastAgentVersion = core.getInput('contrast-api-agent-version')
+    const fileToBeScanned = core.getInput('file-to-be-scanned')
+    const projectName = core.getInput('project-name')
+    const userName = core.getInput('contrast-api-user-name')
+    const resourceGroup = core.getInput('contrast-api-resource-group')
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const apiUrl = core.getInput('contrast-api-url')
+    const apiKey = core.getInput('contrast-api-api-key')
+    const serviceKey = core.getInput('contrast-api-service-key')
+    const organization = core.getInput('contrast-api-organization')
+    const authToken = core.getInput('contrast-auth-token')
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    //Set environment variables
+    process.env['CONTRAST__API__URL'] = apiUrl
+    process.env['CONTRAST__API__API_KEY'] = apiKey
+    process.env['CONTRAST__API__SERVICE_KEY'] = serviceKey
+    process.env['CONTRAST__API__ORGANIZATION'] = organization
+    process.env['CONTRAST__AUTH__TOKEN'] = authToken
+    process.env['CONTRAST__API__USER_NAME'] = userName
+    process.env['CONTRAST_RESOURCE_GROUP'] = resourceGroup
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    //Download the scanner from JFrog Artifactory
+    core.info('Downloading SAST scanner...')
+    await execAsync(
+      `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-${contrastAgentVersion}.jar`
+    )
+
+    //Run the SAST scan
+    core.info('Running SAST scan...')
+    const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "${resourceGroup}"`
+    const { stdout, stderr } = await execAsync(scanCommand)
+
+    if (stderr) {
+      core.setFailed(`SAST scan failed: ${stderr}`)
+      return
+    }
+    core.info(`SAST scan completed successfully:\n${stdout}`)
+
+    // Directly output the scan results to the action log
+    core.setOutput('scan-result', stdout)
   } catch (error) {
-    // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
+
+runSastScan()

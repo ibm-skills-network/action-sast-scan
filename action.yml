@@ -3,23 +3,53 @@ description:
   'Identifies vulnerabilities in codebase with Contrast Security SAST'
 author: 'Allan George (allang@ibm.com)'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'crosshair'
+  color: 'orange'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  contrast-api-url:
+    description: 'Contrast API URL'
+    required: false
+  jfrog-token:
+    description: 'Jfrog Token'
     required: true
-    default: '1000'
+  contrast-api-user-name:
+    description: 'Contrast API Username'
+    required: true
+  contrast-api-api-key:
+    description: 'Contrast API Key'
+    required: true
+  contrast-api-agent-version:
+    description: 'Contrast Agent Version'
+    required: true
+    default: '1.0.7'
+  contrast-api-service-key:
+    description: 'Contrast Service Key'
+    required: true
+  contrast-api-organization:
+    description: 'Contrast Organization ID'
+    required: true
+  contrast-api-auth-token:
+    description: 'Contrast Auth Token'
+    required: true
+  contrast-api-resource-group:
+    description: 'Resource group name'
+    required: true
 
-# Define your outputs here.
+  project-name:
+    description: 'Project name for the scan'
+    required: true
+    default: 'test-project'
+  file-to-be-scanned:
+    description: 'File or directory path of the codebase to scan'
+    required: false
+    default: '.'
+
 outputs:
-  time:
-    description: 'Your output description here'
+  scan-result:
+    description: 'The result of the SAST scan'
 
 runs:
-  using: node20
-  main: dist/index.js
+  using: 'node20'
+  main: 'dist/index.js'

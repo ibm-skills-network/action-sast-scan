@@ -1,3 +1,37 @@
-# Repository CODEOWNERS
+* @ibm-skills-network/security
 
-* @actions/actions-oss-maintainers
+yarn.lock
+package.json
+
+
+#### Organization Synced Configuration Below ####
+# If you want to add to the below, please do so in the security-compliance-automation repo and sync the file to every repo
+
+# Python
+requirements.txt
+pipfile.toml
+pipfile.lock
+pyproject.toml
+poetry.lock
+setup.py
+setup.cfg
+environment.yml
+
+# JavaScript
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Go
+go.mod
+go.sum
+
+# Ruby
+Gemfile
+Gemfile.lock
+
+# Elixer, Erlang
+mix.exs
+mix.lock
+rebar.config

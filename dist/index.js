@@ -24734,57 +24734,55 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
+exports.runSastScan = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const wait_1 = __nccwpck_require__(5259);
-/**
- * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
- */
-async function run() {
+const child_process_1 = __nccwpck_require__(2081);
+const util_1 = __nccwpck_require__(3837);
+const execAsync = (0, util_1.promisify)(child_process_1.exec);
+async function runSastScan() {
     try {
-        const ms = core.getInput('milliseconds');
-        // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        core.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        core.debug(new Date().toTimeString());
-        await (0, wait_1.wait)(parseInt(ms, 10));
-        core.debug(new Date().toTimeString());
-        // Set outputs for other workflow steps to use
-        core.setOutput('time', new Date().toTimeString());
+        //Retrieve inputs
+        const jfrogToken = core.getInput('jfrog-token');
+        const contrastAgentVersion = core.getInput('contrast-api-agent-version');
+        const fileToBeScanned = core.getInput('file-to-be-scanned');
+        const projectName = core.getInput('project-name');
+        const userName = core.getInput('contrast-api-user-name');
+        const resourceGroup = core.getInput('contrast-api-resource-group');
+        const apiUrl = core.getInput('contrast-api-url');
+        const apiKey = core.getInput('contrast-api-api-key');
+        const serviceKey = core.getInput('contrast-api-service-key');
+        const organization = core.getInput('contrast-api-organization');
+        const authToken = core.getInput('contrast-auth-token');
+        //Set environment variables
+        process.env['CONTRAST__API__URL'] = apiUrl;
+        process.env['CONTRAST__API__API_KEY'] = apiKey;
+        process.env['CONTRAST__API__SERVICE_KEY'] = serviceKey;
+        process.env['CONTRAST__API__ORGANIZATION'] = organization;
+        process.env['CONTRAST__AUTH__TOKEN'] = authToken;
+        process.env['CONTRAST__API__USER_NAME'] = userName;
+        process.env['CONTRAST_RESOURCE_GROUP'] = resourceGroup;
+        //Download the scanner from JFrog Artifactory
+        core.info('Downloading SAST scanner...');
+        await execAsync(`wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-${contrastAgentVersion}.jar`);
+        //Run the SAST scan
+        core.info('Running SAST scan...');
+        const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "${resourceGroup}"`;
+        const { stdout, stderr } = await execAsync(scanCommand);
+        if (stderr) {
+            core.setFailed(`SAST scan failed: ${stderr}`);
+            return;
+        }
+        core.info(`SAST scan completed successfully:\n${stdout}`);
+        // Directly output the scan results to the action log
+        core.setOutput('scan-result', stdout);
     }
     catch (error) {
-        // Fail the workflow run if an error occurs
         if (error instanceof Error)
             core.setFailed(error.message);
     }
 }
-exports.run = run;
-
-
-/***/ }),
-
-/***/ 5259:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = void 0;
-/**
- * Wait for a number of milliseconds.
- * @param milliseconds The number of milliseconds to wait.
- * @returns {Promise<string>} Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise(resolve => {
-        if (isNaN(milliseconds)) {
-            throw new Error('milliseconds not a number');
-        }
-        setTimeout(() => resolve('done!'), milliseconds);
-    });
-}
-exports.wait = wait;
+exports.runSastScan = runSastScan;
+runSastScan();
 
 
 /***/ }),
@@ -24810,6 +24808,14 @@ module.exports = require("async_hooks");
 
 "use strict";
 module.exports = require("buffer");
+
+/***/ }),
+
+/***/ 2081:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");
 
 /***/ }),
 
@@ -26688,7 +26694,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  */
 const main_1 = __nccwpck_require__(399);
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-(0, main_1.run)();
+(0, main_1.runSastScan)();
 
 })();
 
