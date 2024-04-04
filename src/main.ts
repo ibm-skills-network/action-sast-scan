@@ -21,13 +21,13 @@ export async function runSastScan(): Promise<void> {
     const authToken = core.getInput('contrast-auth-token')
 
     //Set environment variables
-    // process.env['CONTRAST__API__URL'] = apiUrl
-    // process.env['CONTRAST__API__API_KEY'] = apiKey
-    // process.env['CONTRAST__API__SERVICE_KEY'] = serviceKey
-    // process.env['CONTRAST__API__ORGANIZATION'] = organization
-    // process.env['CONTRAST__AUTH__TOKEN'] = authToken
-    // process.env['CONTRAST__API__USER_NAME'] = userName
-    // process.env['CONTRAST_RESOURCE_GROUP'] = resourceGroup
+    process.env['CONTRAST__API__URL'] = apiUrl
+    process.env['CONTRAST__API__API_KEY'] = apiKey
+    process.env['CONTRAST__API__SERVICE_KEY'] = serviceKey
+    process.env['CONTRAST__API__ORGANIZATION'] = organization
+    process.env['CONTRAST__AUTH__TOKEN'] = authToken
+    process.env['CONTRAST__API__USER_NAME'] = userName
+    process.env['CONTRAST_RESOURCE_GROUP'] = resourceGroup
 
     //Download the scanner from JFrog Artifactory
     core.info('Downloading SAST scanner...')
