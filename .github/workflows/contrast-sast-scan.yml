@@ -21,7 +21,7 @@ jobs:
       - name: Run Contrast SAST Scan
         uses: ./
         with:
-          contrast-api-url: ${{ vars.CONTRAST_API_URL }}
+          contrast-api-url: ${{ vars.CONTRAST__API__URL }}
           jfrog-token: ${{ secrets.JFROG_TOKEN }}
           contrast-api-agent-version: ${{ vars.CONTRAST_AGENT_VERSION }}
           contrast-api-user-name: ${{ secrets.CONTRAST__API__USER_NAME }}
