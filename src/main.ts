@@ -35,7 +35,7 @@ export async function runSastScan(): Promise<void> {
       `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-${contrastAgentVersion}.jar`
     )
 
-    console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`);  
+    console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`)
 
     //Run the SAST scan
     core.info('Running SAST scan...')
