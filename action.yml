@@ -8,9 +8,6 @@ branding:
   color: 'orange'
 
 inputs:
-  contrast-api-url:
-    description: 'Contrast API URL'
-    required: false
   jfrog-token:
     description: 'Jfrog Token'
     required: true
