@@ -24765,11 +24765,11 @@ async function runSastScan() {
         core.info('Downloading SAST scanner...');
         await execAsync(`wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-1.0.9.jar`);
         console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`);
-        console.log(`CONTRAST__API__SERVICE_KEY: ${process.env.CONTRAST__API__URL}`);
-        console.log(`CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__URL}`);
-        console.log(`CONTRAST__AUTH__TOKEN: ${process.env.CONTRAST__API__URL}`);
-        console.log(`CONTRAST_RESOURCE_GROUP: ${process.env.CONTRAST__API__URL}`);
-        console.log(`CONTRAST__API__USER_NAME: ${process.env.CONTRAST__API__URL}`);
+        console.log(`CONTRAST__API__SERVICE_KEY: ${process.env.CONTRAST__API__SERVICE_KEY}`);
+        console.log(`CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__ORGANIZATION}`);
+        console.log(`CONTRAST__AUTH__TOKEN: ${process.env.CONTRAST__AUTH__TOKEN}`);
+        console.log(`CONTRAST_RESOURCE_GROUP: ${process.env.CONTRAST_RESOURCE_GROUP}`);
+        console.log(`CONTRAST__API__USER_NAME: ${process.env.CONTRAST__API__USER_NAME}`);
         //Run the SAST scan
         core.info('Running SAST scan...');
         const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name test-project-github-action --label Skills.Network@ibm.com -r "IBM Developer Skills Network"`;
