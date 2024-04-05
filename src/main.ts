@@ -8,9 +8,10 @@ export async function runSastScan(): Promise<void> {
   try {
     //Retrieve inputs
     const jfrogToken = core.getInput('jfrog-token')
-    const contrastAgentVersion = core.getInput('contrast-api-agent-version')
+    // const contrastAgentVersion = core.getInput('contrast-api-agent-version')
     const fileToBeScanned = core.getInput('file-to-be-scanned')
-    const projectName = core.getInput('project-name')
+    const githubRepository = process.env.GITHUB_REPOSITORY // e.g., "owner/repo"
+    const projectName = `${githubRepository}-scan` // e.g., "owner/repo-scan"
     const userName = core.getInput('contrast-api-user-name')
     const resourceGroup = core.getInput('contrast-api-resource-group')
 
@@ -38,24 +39,9 @@ export async function runSastScan(): Promise<void> {
     //Log the successful download and expected location of the scanner
     core.info('SAST scanner downloaded successfully. Location: ./scanner.jar')
 
-    console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`)
-    console.log(
-      `CONTRAST__API__SERVICE_KEY: ${process.env.CONTRAST__API__SERVICE_KEY}`
-    )
-    console.log(
-      `CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__ORGANIZATION}`
-    )
-    console.log(`CONTRAST__AUTH__TOKEN: ${process.env.CONTRAST__AUTH__TOKEN}`)
-    console.log(
-      `CONTRAST_RESOURCE_GROUP: ${process.env.CONTRAST_RESOURCE_GROUP}`
-    )
-    console.log(
-      `CONTRAST__API__USER_NAME: ${process.env.CONTRAST__API__USER_NAME}`
-    )
-
     //Run the SAST scan
     core.info('Running SAST scan...')
-    const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name test-project-github-action --label Skills.Network@ibm.com -r "IBM Developer Skills Network"`
+    const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "IBM Developer Skills Network"`
 
     const { stdout, stderr } = await execAsync(scanCommand)
 
