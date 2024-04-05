@@ -68,5 +68,3 @@ export async function runSastScan(): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
-
-runSastScan()

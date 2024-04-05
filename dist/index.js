@@ -24788,7 +24788,6 @@ async function runSastScan() {
     }
 }
 exports.runSastScan = runSastScan;
-runSastScan();
 
 
 /***/ }),
