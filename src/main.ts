@@ -37,7 +37,9 @@ export async function runSastScan(): Promise<void> {
 
     console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`)
     console.log(`CONTRAST__API__SERVICE_KEY: ${process.env.CONTRAST__API__URL}`)
-    console.log(`CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__URL}`)
+    console.log(
+      `CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__URL}`
+    )
     console.log(`CONTRAST__AUTH__TOKEN: ${process.env.CONTRAST__API__URL}`)
     console.log(`CONTRAST_RESOURCE_GROUP: ${process.env.CONTRAST__API__URL}`)
     console.log(`CONTRAST__API__USER_NAME: ${process.env.CONTRAST__API__URL}`)
