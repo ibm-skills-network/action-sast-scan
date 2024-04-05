@@ -24781,7 +24781,7 @@ async function runSastScan() {
             return;
         }
         core.info(`SAST scan completed successfully:\n${stdout}`);
-        // Directly output the scan results to the action log
+        // Directly output the scan results to the action log for now
         core.setOutput('scan-result', stdout);
     }
     catch (error) {
