@@ -24752,7 +24752,7 @@ async function runSastScan() {
         const apiKey = core.getInput('contrast-api-api-key');
         const serviceKey = core.getInput('contrast-api-service-key');
         const organization = core.getInput('contrast-api-organization');
-        const authToken = core.getInput('contrast-auth-token');
+        const authToken = core.getInput('contrast-api-auth-token');
         //Set environment variables
         process.env['CONTRAST__API__URL'] = apiUrl;
         process.env['CONTRAST__API__API_KEY'] = apiKey;
