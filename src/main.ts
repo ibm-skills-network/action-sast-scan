@@ -39,7 +39,7 @@ export async function runSastScan(): Promise<void> {
 
     //Run the SAST scan
     core.info('Running SAST scan...')
-    const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "${resourceGroup}"`
+    const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name test-project-github-action --label Skills.Network@ibm.com -r "IBM Developer Skills Network"`
 
     const { stdout, stderr } = await execAsync(scanCommand)
 
