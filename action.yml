@@ -22,8 +22,8 @@ inputs:
     required: true
   contrast-api-agent-version:
     description: 'Contrast Agent Version'
-    required: true
-    default: '1.0.7'
+    required: false
+    default: '1.0.9'
   contrast-api-service-key:
     description: 'Contrast Service Key'
     required: true
@@ -40,7 +40,7 @@ inputs:
   project-name:
     description: 'Project name for the scan'
     required: true
-    default: 'test-project'
+    default: 'testing-action-scan'
   file-to-be-scanned:
     description: 'File or directory path of the codebase to scan'
     required: false
