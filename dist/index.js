@@ -24764,6 +24764,8 @@ async function runSastScan() {
         //Download the scanner from JFrog Artifactory
         core.info('Downloading SAST scanner...');
         await execAsync(`wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-1.0.9.jar`);
+        //Log the successful download and expected location of the scanner
+        core.info('SAST scanner downloaded successfully. Location: ./scanner.jar');
         console.log(`CONTRAST__API__URL: ${process.env.CONTRAST__API__URL}`);
         console.log(`CONTRAST__API__SERVICE_KEY: ${process.env.CONTRAST__API__SERVICE_KEY}`);
         console.log(`CONTRAST__API__ORGANIZATION: ${process.env.CONTRAST__API__ORGANIZATION}`);
