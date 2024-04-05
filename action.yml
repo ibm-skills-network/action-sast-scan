@@ -40,7 +40,7 @@ inputs:
   project-name:
     description: 'Project name for the scan'
     required: true
-    default: 'testing-action-scan'
+    default: 'contrast-sast-scan'
   file-to-be-scanned:
     description: 'File or directory path of the codebase to scan'
     required: false

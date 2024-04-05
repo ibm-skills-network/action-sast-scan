@@ -31,6 +31,7 @@ jobs:
           contrast-api-auth-token: ${{ secrets.CONTRAST__AUTH__TOKEN }}
           contrast-api-resource-group: ${{ vars.CONTRAST_RESOURCE_GROUP }}
           file-to-be-scanned: ${{ github.workspace }}
+          project-name: ${{ github.repository }}-scan
 
       # - name: Upload SAST Scan Results
       #   uses: actions/upload-artifact@v2

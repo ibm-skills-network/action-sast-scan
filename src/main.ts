@@ -10,8 +10,7 @@ export async function runSastScan(): Promise<void> {
     const jfrogToken = core.getInput('jfrog-token')
     // const contrastAgentVersion = core.getInput('contrast-api-agent-version')
     const fileToBeScanned = core.getInput('file-to-be-scanned')
-    const githubRepository = process.env.GITHUB_REPOSITORY // e.g., "owner/repo"
-    const projectName = `${githubRepository}-scan` // e.g., "owner/repo-scan"
+    const projectName = core.getInput('project-name')
     const userName = core.getInput('contrast-api-user-name')
     const resourceGroup = core.getInput('contrast-api-resource-group')
 
