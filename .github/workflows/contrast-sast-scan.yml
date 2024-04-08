@@ -39,4 +39,3 @@ jobs:
           name: sast-artifacts
           path: |
             sast-report.zip
-            

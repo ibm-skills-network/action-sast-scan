@@ -7,7 +7,10 @@ import archiver from 'archiver'
 const execAsync = promisify(exec)
 
 //zip files
-async function zipFiles(outputFilename: string, files: string[]): Promise<void> {
+async function zipFiles(
+  outputFilename: string,
+  files: string[]
+): Promise<void> {
   return new Promise((resolve, reject) => {
     const output = fs.createWriteStream(outputFilename)
     const archive = archiver('zip', {
@@ -76,10 +79,10 @@ export async function runSastScan(): Promise<void> {
     }
     core.info(`SAST scan completed successfully:\n${stdout}`)
 
-    //list all the files created by scanner 
-    const files = fs.readdirSync('.');
-    core.info('Files created:');
-    files.forEach(file => core.info(file));
+    //list all the files created by scanner
+    const files = fs.readdirSync('.')
+    core.info('Files created:')
+    files.forEach(file => core.info(file))
 
     // Try saving scan results to a csv
     const resultsFilePath = './sast-results.csv'

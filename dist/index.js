@@ -53621,14 +53621,15 @@ async function runSastScan() {
             return;
         }
         core.info(`SAST scan completed successfully:\n${stdout}`);
+        //list all the files created by scanner
+        const files = fs_1.default.readdirSync('.');
+        core.info('Files created:');
+        files.forEach(file => core.info(file));
         // Try saving scan results to a csv
         const resultsFilePath = './sast-results.csv';
-        const logsFilePath = './sast-logs.log';
         fs_1.default.writeFileSync(resultsFilePath, 'Your parsed results here');
-        fs_1.default.writeFileSync(logsFilePath, stderr);
-        //zip results and logs
+        //zip result
         await zipFiles('sast-report.zip', [resultsFilePath]);
-        await zipFiles('sast-logs.zip', [logsFilePath]);
     }
     catch (error) {
         if (error instanceof Error)
