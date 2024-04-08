@@ -32,3 +32,11 @@ jobs:
           contrast-api-resource-group: ${{ vars.CONTRAST_RESOURCE_GROUP }}
           file-to-be-scanned: ${{ github.workspace }}
           project-name: ${{ github.repository }}-scan
+
+      - name: Upload SAST Scan Report and Logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: sast-artifacts
+          path: |
+            sast-report.zip
+            sast-logs.zip
