@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: Contrast-Security-OSS/contrast-local-scan-action@v1.0.0
         with:
+          apiUrl: ${{ secrets.CONTRAST__API__URL }}
           apiUserName: ${{ secrets.CONTRAST__API__USER_NAME }}
           apiKey: ${{ secrets.CONTRAST__API__API_KEY }}
           apiServiceKey: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
