@@ -1,7 +1,10 @@
 name: Contrast SAST Scan
 
 on:
-  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   sast-scan:
@@ -19,7 +22,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Run Contrast SAST Scan
-        uses: ./
+        uses: ibm-skills-network/action-scan-container-image@main
         with:
           contrast-api-url: ${{ vars.CONTRAST__API__URL }}
           jfrog-token: ${{ secrets.JFROG_TOKEN }}
@@ -31,4 +34,4 @@ jobs:
           contrast-api-auth-token: ${{ secrets.CONTRAST__AUTH__TOKEN }}
           contrast-api-resource-group: ${{ vars.CONTRAST_RESOURCE_GROUP }}
           file-to-be-scanned: ${{ github.workspace }}
-          project-name: ${{ github.repository }}-scan
+          project-name: ${{ github.repository }}
