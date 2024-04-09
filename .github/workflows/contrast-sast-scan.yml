@@ -22,7 +22,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Run Contrast SAST Scan
-        uses: ibm-skills-network/action-scan-container-image@main
+        uses: ibm-skills-network/action-sast-scan@releases/v1 
         with:
           contrast-api-url: ${{ vars.CONTRAST__API__URL }}
           jfrog-token: ${{ secrets.JFROG_TOKEN }}
