@@ -6,5 +6,4 @@
  * variables following the pattern `INPUT_<INPUT_NAME>`.
  */
 
-
 // TODO
