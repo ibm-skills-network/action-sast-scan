@@ -48,10 +48,8 @@ export async function runSastScan(): Promise<void> {
       core.setFailed(`SAST scan failed: ${stderr}`)
       return
     }
-    core.info(`SAST scan completed successfully:\n${stdout}`)
+    core.info(`SAST scan completed successfully.`)
 
-    // Directly output the scan results to the action log for now
-    core.setOutput('scan-result', stdout)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
