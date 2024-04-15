@@ -36,7 +36,7 @@ export async function runSastScan(): Promise<void> {
     )
 
     //Log the successful download and expected location of the scanner
-    core.info('SAST scanner downloaded successfully. Location: ./scanner.jar')
+    core.info('SAST scanner downloaded successfully at location: ./scanner.jar')
 
     //Run the SAST scan
     core.info('Running SAST scan...')
@@ -48,10 +48,7 @@ export async function runSastScan(): Promise<void> {
       core.setFailed(`SAST scan failed: ${stderr}`)
       return
     }
-    core.info(`SAST scan completed successfully:\n${stdout}`)
-
-    // Directly output the scan results to the action log for now
-    core.setOutput('scan-result', stdout)
+    core.info(`SAST scan completed successfully.`)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
