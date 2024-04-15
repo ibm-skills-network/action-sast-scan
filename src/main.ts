@@ -36,7 +36,7 @@ export async function runSastScan(): Promise<void> {
     )
 
     //Log the successful download and expected location of the scanner
-    core.info('SAST scanner downloaded successfully. Location: ./scanner.jar')
+    core.info('SAST scanner downloaded successfully at location: ./scanner.jar')
 
     //Run the SAST scan
     core.info('Running SAST scan...')
