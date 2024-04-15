@@ -49,7 +49,6 @@ export async function runSastScan(): Promise<void> {
       return
     }
     core.info(`SAST scan completed successfully.`)
-
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
