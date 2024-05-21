@@ -7,10 +7,13 @@ package.json
 #### Organization Synced Configuration Below ####
 # If you want to add to the below, please do so in the security-compliance-automation repo and sync the file to every repo
 
+# Dependency Resolution and Supported Package Manager Files
+# Reference: https://docs.mend.io/bundle/wsk/page/dependency_resolution_and_supported_package_manager_files.html
+
 # Python
 requirements.txt
-pipfile.toml
-pipfile.lock
+Pipfile
+Pipfile.lock
 pyproject.toml
 poetry.lock
 setup.py
