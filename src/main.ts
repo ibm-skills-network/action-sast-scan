@@ -6,7 +6,7 @@ const execAsync = promisify(exec)
 
 export async function runSastScan(): Promise<void> {
   try {
-    //Retrieve inputs
+    // Retrieve inputs
     const jfrogToken = core.getInput('jfrog-token')
     // const contrastAgentVersion = core.getInput('contrast-api-agent-version')
     const fileToBeScanned = core.getInput('file-to-be-scanned')
@@ -20,7 +20,7 @@ export async function runSastScan(): Promise<void> {
     const organization = core.getInput('contrast-api-organization')
     const authToken = core.getInput('contrast-api-auth-token')
 
-    //Set environment variables
+    // Set environment variables
     process.env['CONTRAST__API__URL'] = apiUrl
     process.env['CONTRAST__API__API_KEY'] = apiKey
     process.env['CONTRAST__API__SERVICE_KEY'] = serviceKey
@@ -29,20 +29,20 @@ export async function runSastScan(): Promise<void> {
     process.env['CONTRAST__API__USER_NAME'] = userName
     process.env['CONTRAST_RESOURCE_GROUP'] = resourceGroup
 
-    //Download the scanner from JFrog Artifactory
+    // Download the scanner from JFrog Artifactory
     core.info('Downloading SAST scanner...')
     await execAsync(
-      `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-1.0.9.jar`
+      `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-latest.jar`
     )
 
-    //Log the successful download and expected location of the scanner
+    // Log the successful download and expected location of the scanner
     core.info('SAST scanner downloaded successfully at location: ./scanner.jar')
 
-    //Run the SAST scan
+    // Run the SAST scan
     core.info('Running SAST scan...')
     const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "IBM Developer Skills Network"`
 
-    const { stdout, stderr } = await execAsync(scanCommand)
+    const { stderr } = await execAsync(scanCommand)
 
     if (stderr) {
       core.setFailed(`SAST scan failed: ${stderr}`)
