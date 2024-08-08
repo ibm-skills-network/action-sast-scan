@@ -42,7 +42,7 @@ export async function runSastScan(): Promise<void> {
     core.info('Running SAST scan...')
     const scanCommand = `java -jar scanner.jar ${fileToBeScanned} --project-name ${projectName} --label ${userName} -r "IBM Developer Skills Network"`
 
-    const { stdout, stderr } = await execAsync(scanCommand)
+    const { stderr } = await execAsync(scanCommand)
 
     if (stderr) {
       core.setFailed(`SAST scan failed: ${stderr}`)
