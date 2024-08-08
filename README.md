@@ -39,4 +39,4 @@ This GitHub Action is designed for scanning Skills Network repositories using Co
    ```
 7. Get approval from a fulltimer and merge the PR into the `main` branch
 
-See more info regarding updating  on the [TypeScript action template repo](https://github.com/actions/typescript-action/blob/main/README.md)
+See more info regarding updating the action on the [TypeScript action template repo](https://github.com/actions/typescript-action/blob/main/README.md)
