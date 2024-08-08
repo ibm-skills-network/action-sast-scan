@@ -32,7 +32,7 @@ export async function runSastScan(): Promise<void> {
     //Download the scanner from JFrog Artifactory
     core.info('Downloading SAST scanner...')
     await execAsync(
-      `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-1.0.9.jar`
+      `wget -O scanner.jar --header="X-JFrog-Art-Api: ${jfrogToken}" https://na.artifactory.swg-devops.com/artifactory/css-whitesource-team-java-contrast-agent-maven-local/sast-local-scan-runner-latest.jar`
     )
 
     //Log the successful download and expected location of the scanner
